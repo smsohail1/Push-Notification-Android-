@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +14,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import example.com.pushnotification.app.Config;
@@ -29,14 +30,23 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
+    private ImageView animatedImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        animatedImg = (ImageView) findViewById(R.id.animatedImg);
         txtRegId = (TextView) findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) findViewById(R.id.txt_push_message);
+
+        Glide.with(MainActivity.this)
+                .load("http://i.imgur.com/1ALnB2s.gif")
+                .asGif()
+                //.load(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(animatedImg);
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
